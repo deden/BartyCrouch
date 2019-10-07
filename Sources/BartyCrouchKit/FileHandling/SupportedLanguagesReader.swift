@@ -13,7 +13,11 @@ class SupportedLanguagesReader: SyntaxVisitor {
     }
 
     override func visit(_ enumDeclaration: EnumDeclSyntax) -> SyntaxVisitorContinueKind {
-        if enumDeclaration.parent is CodeBlockItemSyntax || enumDeclaration.identifier.text == "SupportedLanguage" {
+        if enumDeclaration.identifier.text == self.typeName {
+            return .visitChildren
+        }
+        
+        if enumDeclaration.identifier.text == "SupportedLanguage" {
             return .visitChildren
         } else {
             return .skipChildren
